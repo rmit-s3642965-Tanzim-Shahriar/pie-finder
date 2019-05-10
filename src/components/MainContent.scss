@@ -1,0 +1,15 @@
+.buttons
+{
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+   
+    div
+    {
+        margin: 15px 15px 10px 15px;
+        font-weight: normal;
+        font-size:18px;
+    }
+}

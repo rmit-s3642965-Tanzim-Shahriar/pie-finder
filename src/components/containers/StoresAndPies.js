@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {fetchStores} from '../../states/actions/postAction';//fetchPosts to fetchStores
-import {fetchPies} from '../../states/actions/postAction';
-class PieList extends Component
+import {fetchStores} from '../../states/actions/FetchAction';//fetchPosts to fetchStores
+import {fetchPies} from '../../states/actions/FetchAction';
+import MainContent from '../MainContent';
+import NoStoresOrPies from '../NoStoresOrPies';
+class StoresAndPies extends Component
 {
     componentWillMount()
     {
-        this.props.fetchPies();
         this.props.fetchStores();
+        this.props.fetchPies();
     }
 
+    
+
     render() {
-        let storeList = this.props.stores;
-        console.log("store List: "+storeList);
         return (
             <div>
                 {
-                    storeList ?
-                        <div>has stores</div>
-                        : <div>has no stores</div>
+                    (this.props.stores && this.props.pies)?
+                        <MainContent
+                            stores = {this.props.stores}
+                            pies = {this.props.pies}
+                        />
+                        : <NoStoresOrPies/>
                 }
+                {/*To do: one of storeList or pieList is always empty, see what the issue is */}
             </div>
         );
     }
 }
-PieList.protoTypes = {
+StoresAndPies.protoTypes = {
     fetchStores: PropTypes.func.isRequired,
     fetchPies: PropTypes.func.isRequired,
     stores: PropTypes.array.isRequired
@@ -33,13 +39,14 @@ PieList.protoTypes = {
 const mapDispatchtoProps = dispatch => (
     {
         fetchStores: () => {dispatch(fetchStores())},
-        fetchPies: () => {dispatch(fetchPies())}
+        fetchPies: () => {dispatch(fetchPies())},
     }
 );
 const mapStateToProps = state => (
     {
         stores: state.data.stores,
         pies: state.data.pies
+
     }
 );
-export default connect(mapStateToProps,mapDispatchtoProps)(PieList)
+export default connect(mapStateToProps,mapDispatchtoProps)(StoresAndPies)
