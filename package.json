@@ -7,6 +7,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-js-pagination": "^3.0.2",
     "react-scripts": "3.0.0"
   },
   "scripts": {
@@ -36,6 +37,7 @@
     "css-loader": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.12.0",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",

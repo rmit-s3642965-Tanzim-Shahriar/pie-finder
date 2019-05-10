@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import postReducer from './postReducer';
+import FetchReducer from './FetchReducer';
 
 export default combineReducers({
-    data: postReducer
+    data: FetchReducer
 })

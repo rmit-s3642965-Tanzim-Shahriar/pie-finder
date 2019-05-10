@@ -1,0 +1,36 @@
+.pagination
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding:0;
+    margin:0;
+    // border-style:solid;
+    // border-color: rgb(75, 61, 90);
+    // border-width: 1px;
+    li
+    {
+        list-style-type: none;
+        display: flex;
+        margin-left:1px;
+        margin-right:1px;
+        a
+        {
+            color:white;
+            text-decoration: none;
+            display: flex;
+            padding: 4px 8px 4px 8px;
+        }
+        a:hover {
+            color: rgb(199, 199, 199);
+        }
+    }
+    
+}
+.store
+{
+    display: flex;
+    flex-direction: row;
+}
