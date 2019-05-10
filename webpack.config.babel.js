@@ -2,7 +2,7 @@
 
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import webpack from 'webpack';
+
 
 module.exports = {
     devServer: {
@@ -34,8 +34,9 @@ module.exports = {
     plugins: [
         //new webpack.optimize.OccurrenceOrderPlugin()
         new HtmlWebpackPlugin({
-            template: './public/index.html'
+            template: './public/index.html',
+            inject: false 
         })
-    ]
+    ],
 };
 

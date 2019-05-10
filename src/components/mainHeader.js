@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
-
+import './mainHeader.scss';
 class MainHeader extends Component 
 {
-    // constructor() 
-    // {
-    //     super();
-    //     this.state = {
-
-    //     };
-    // };
     render() 
     {
-        //constants buttons
         return (
-        <div>
-                <div>This is main Header</div>
-        </div>
+            <div className='mainHeader'>
+                <div>PIE OF THE DAY</div>
+                <div>STORES</div>
+                <div>PIES</div>
+            </div>
         );
     }
 }
