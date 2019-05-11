@@ -1,3 +1,25 @@
+.ListOfStores
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: stretch;
+    align-items: flex-start;
+    margin-left:8vw;
+    margin-right:8vw;
+}
+.headerTitle
+{
+    font-weight: lighter;
+    font-size: 30px;
+    padding:15px;
+}
+.paginationContainer
+{
+    width:100%;
+    padding-top:10px;
+    padding-bottom:10px;
+}
 .pagination
 {
     display: flex;
@@ -7,9 +29,7 @@
     align-items: center;
     padding:0;
     margin:0;
-    // border-style:solid;
-    // border-color: rgb(75, 61, 90);
-    // border-width: 1px;
+    
     li
     {
         list-style-type: none;
@@ -24,13 +44,66 @@
             padding: 4px 8px 4px 8px;
         }
         a:hover {
-            color: rgb(199, 199, 199);
+            cursor: pointer;
+            color: rgb(235, 215, 69);
         }
     }
     
 }
-.store
+.boxContainer
+{
+    display: flex;
+    flex-direction: column;
+    width:100%;    
+}
+.itemBox
 {
     display: flex;
     flex-direction: row;
+    border-style:solid;
+    border-color: rgb(255, 255, 255);
+    border-width: 1px;
+    padding:15px;
+}
+.titleContainer
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.itemTitle
+{
+    font-size: 25px;
+    font-weight: normal;
+    padding-bottom: 8px;
+}
+.otherDescription
+{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-weight: lighter;
+    font-size: 14px;
+}
+.boxBodyContainer
+{
+    display: flex;
+    flex-direction: column;
+    flex:4;
+    align-items: flex-start;
+}
+.priceContainer
+{
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.priceItem
+{
+    font-weight: lighter;
+    font-size: 20px;
 }
