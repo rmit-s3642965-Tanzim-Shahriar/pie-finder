@@ -3,6 +3,7 @@ import Pagination from 'react-js-pagination';
 import './ListOfStoresOrPies.scss';
 import sort from 'fast-sort';
 import PropTypes from 'prop-types';
+import DropdownButton from 'react-bootstrap/DropdownButton'
 class ListOfStores extends Component 
 {
     
@@ -10,8 +11,8 @@ class ListOfStores extends Component
     {
         super();
         this.state = {
-            activePage: 0,
-            maxStoresPerPage: 0,
+            activePage: 1,
+            maxStoresPerPage: 5,
             sortBy: 'ascrating',
             hasLoaded:false,
             stores:{},
@@ -21,50 +22,26 @@ class ListOfStores extends Component
         
     };
 
-   componentWillMount()
-   {
-    this.setState({
-        activePage: 1,
-        maxStoresPerPage: 5,
-    });
-   }
-//    componentDidMount() {
-//     this.setState({hasLoaded: false})
-//     setTimeout(() => { 
-//           this.setState({hasLoaded: true})
-//     }, 5000);
-//     }
 
-    componentWillReceiveProps()
+
+    getSortedStores=()=>
     {
         
-        if((this.props.stores && this.props.pies) && (this.props.stores!==this.state.stores || this.props.pies!==this.state.pies))
+        let sortedStores = this.props.stores;
+        
+      
+        switch(this.state.sortBy)
         {
-            this.setState({
-                stores:this.props.stores,
-                pies:this.props.pies
-            });
+            case 'ascrating':
+                sort(sortedStores).asc('rating');
+            case 'descrating':
+                sort(sortedStores).desc('rating'); 
+            default:
+            sortedStores = this.props.stores;
+                
         }
-    }
-
-    setSortedStores=()=>
-    {
-        for(let i = 0; i < this.state.stores.length; i++)
-        {
-            this.setState({
-                sortedStores:{
-                    nameOfStore:this.state.stores[i].displayName,
-                    address:this.state.stores[i].address,
-                    mobile:this.state.stores[i].mobile,
-                    rating: this.state.stores[i].rating,
-                    pieOfTheDay: {
-                        name: 'todo',
-                        price: 'todo'
-                    },
-                    quantity: 'todo',
-                }
-            });
-        }
+        console.log(sortedStores);
+        return sortedStores;
         
     }
 
@@ -72,7 +49,7 @@ class ListOfStores extends Component
     {
         
         let name,price,quantity =  '';
-        const{pies} = this.state;
+        const{pies} = this.props;
         for(let i = 0; i < pies.length; i++)
         {
             
@@ -93,6 +70,7 @@ class ListOfStores extends Component
     renderActivePage = () => 
     {
         
+        const sortedStores = this.getSortedStores();
         let list = this.props.stores? [...this.props.stores]: null;
         let counter = 0;
         if(!list)
@@ -103,38 +81,18 @@ class ListOfStores extends Component
         while(list.length!==0)
         {
             list.pop();
-        }
-        
-        let sortedStore = this.props.stores;
-
-        this.setSortedStores(this.props.stores);
-
-        switch(this.state.sortBy)
-        {
-            case 'ascprice':
-                sort(sortedStore).asc('price');
-            case 'descprice':
-                sort(sortedStore).desc('price')
-            case 'ascquantity':
-                sort(sortedStore).asc('quantity')
-            case 'descquantity':
-                sort(sortedStore).desc('quantity')
-            case 'ascrating':
-                sort(sortedStore).asc('rating')
-            case 'descrating':
-                sort(sortedStore).desc('rating') 
-            default:
-            sortedStore = this.props.stores;
-                
-        }
-        
-        for(let i = (this.state.activePage-1)*this.state.maxStoresPerPage; i< this.props.stores.length && counter<5; i++)
+        }  
+        for(let i = (this.state.activePage-1)*this.state.maxStoresPerPage; i< sortedStores.length && counter<5; i++)
         {
             
-            list.push(sortedStore[i]);
+            list.push(sortedStores[i]);
             counter++;
             
         
+        }
+        if(!list)
+        {
+            return null;
         }
         
         const tempStores = list.map(store =>
@@ -190,15 +148,18 @@ class ListOfStores extends Component
 
     
     render() 
-    {   
-        const{ stores } = this.props;
-
+    {  
+        const {stores,pies} = this.props;
+        
+        
         let totalItems = stores ? parseInt(stores.length) : 0;        
+        let activePageDiv = this.renderActivePage();
         return (
 
             <div className='ListOfStores'>
                 <div className='headerTitle'>Stores:</div>
-                {this.renderActivePage(this.state.activePage)}
+               
+                {activePageDiv}
                 <div className='paginationContainer'>
                     <Pagination
                         activePage={this.state.activePage}

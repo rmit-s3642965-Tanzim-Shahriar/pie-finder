@@ -11,7 +11,7 @@ class About extends Component
                     This application finds the Pie Of The Day for each store and lists information about the store.
                 </p>
                 <p>
-                    You can sort the Pies based on price and quantity.
+                    You can sort the Pies based on price, quantity of the pie of the day or by rating of the store.
                 </p>
             </div>
             

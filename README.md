@@ -1,4 +1,5 @@
-This project was at first bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Later on, redux store was added with custom actions, reducers.
+This project was at first bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
+Later on, redux store was added with custom actions, reducers.
 
 ## Available Scripts
 
