@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was at first bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Later on, redux store was added with custom actions, reducers.
 
 ## Available Scripts
 
@@ -10,7 +10,7 @@ Runs the app in the development mode.<br>
 Open [localhost:3011](http://localhost:3011) to view it in the browser.
 
 The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+
 
 ### `npm test`
 
@@ -39,9 +39,9 @@ To add redux devtools to observe state management, install redux devtools chrome
 
 ### DEPENDENCIES USED
 
-1 webpack: runs the server
-2 babel: converts jsx and scss to one js file
-3 sass-loader,node-sass,style-loader: loads scss files 
-4 react-bootstrap: not used yet
-5 react-js-pagination: used for making the ul li at the bottom of page
-6 fast-sort: sorts arrays with good benchmark
+`webpack`: runs the server<br>
+`babel`: converts jsx and scss to one js file<br>
+`sass-loader,node-sass,style-loader`: loads scss files <br>
+`react-bootstrap`: not used yet<br>
+`react-js-pagination`: used for making the ul li at the bottom of page<br>
+`fast-sort`: sorts arrays with good benchmark<br>
