@@ -72,17 +72,17 @@ class ListOfStores extends Component
     {
         
         let name,price,quantity =  '';
-        
-        for(let i = 0; i < this.props.pies.length; i++)
+        const{pies} = this.state;
+        for(let i = 0; i < pies.length; i++)
         {
             
-            if(this.props.pies[i].isPieOfTheDay)
+            if(pies[i].isPieOfTheDay)
             {
-                if(this.props.pies[i].storeId===storeId)
+                if(pies[i].storeId===storeId)
                 {
-                    name= this.props.pies[i].displayName;
-                    price= this.props.pies[i].priceString;
-                    quantity= this.props.pies[i].quantity;
+                    name= pies[i].displayName;
+                    price= pies[i].priceString;
+                    quantity= pies[i].quantity;
                 }
             }
         }
@@ -107,7 +107,7 @@ class ListOfStores extends Component
         
         let sortedStore = this.props.stores;
 
-        //this.setSortedStores(this.props.stores);
+        this.setSortedStores(this.props.stores);
 
         switch(this.state.sortBy)
         {
