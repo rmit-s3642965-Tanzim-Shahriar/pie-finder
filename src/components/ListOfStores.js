@@ -1,23 +1,66 @@
 import React, { Component } from 'react';
 import Pagination from 'react-js-pagination';
 import './ListOfStoresOrPies.scss';
+import { withStyles } from '@material-ui/core/styles'
 import sort from 'fast-sort';
 import PropTypes from 'prop-types';
-import DropdownButton from 'react-bootstrap/DropdownButton'
+import Switch from '@material-ui/core/Switch';
+import Select from '@material-ui/core/Select';
+import { MenuItem } from '@material-ui/core';
+import InputBase from '@material-ui/core/InputBase';
+import { isUserWhitespacable } from '@babel/types';
+
+const BootstrapInput = withStyles(theme => ({
+    root: {
+      'label + &': {
+        marginTop: theme.spacing.unit * 3,
+      },
+    },
+    input: {
+      borderRadius: 4,
+      position: 'relative',
+      backgroundColor: theme.palette.background.paper,
+      border: '1px solid #ced4da',
+      fontSize: 15,
+      width: 'auto',
+      padding: '10px 26px 10px 12px',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+      '&:focus': {
+        borderRadius: 4,
+        borderColor: '#80bdff',
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+      },
+    },
+  }))(InputBase);
+
 class ListOfStores extends Component 
 {
     
-    constructor() 
+    constructor(props) 
     {
-        super();
+        super(props);
         this.state = {
             activePage: 1,
             maxStoresPerPage: 5,
-            sortBy: 'ascrating',
             hasLoaded:false,
             stores:{},
             pies:{},
-            sortedStores:{}
+            sortedStores:{},
+            selectedSort: '',
+            ascending: false,
         };
         
     };
@@ -28,19 +71,16 @@ class ListOfStores extends Component
     {
         
         let sortedStores = this.props.stores;
-        
-      
-        switch(this.state.sortBy)
+        console.log("selectedSort:"+this.state.selectedSort);
+        console.log("ascending:"+this.state.ascending);
+        if(this.state.selectedSort === 'storeRating')
         {
-            case 'ascrating':
-                sort(sortedStores).asc('rating');
-            case 'descrating':
-                sort(sortedStores).desc('rating'); 
-            default:
-            sortedStores = this.props.stores;
-                
+            this.state.ascending? sort(sortedStores).asc('rating'): sort(sortedStores).desc('rating');;
         }
-        console.log(sortedStores);
+        else
+        {
+            sortedStores = this.props.stores;
+        }
         return sortedStores;
         
     }
@@ -146,7 +186,16 @@ class ListOfStores extends Component
         this.setState({activePage:pageNumber});
     }
 
-    
+    toggleChange= event =>
+    {
+        
+        this.setState({ascending: !this.state.ascending});
+    }
+    handleChange = event => 
+    {
+        this.setState({ selectedSort: event.target.value });
+    };
+
     render() 
     {  
         const {stores,pies} = this.props;
@@ -158,7 +207,29 @@ class ListOfStores extends Component
 
             <div className='ListOfStores'>
                 <div className='headerTitle'>Stores:</div>
-               
+                <div className='sortingContainer'>
+                    <div>Sort by</div>
+                    <div className="sortSelect">
+                        <Select
+                            value={this.state.selectedSort}
+                            onChange={this.handleChange}
+                            input={<BootstrapInput name="age" id="age-customized-select" />}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value='storeRating'>Store Rating</MenuItem>
+                            <MenuItem value='price'>Price</MenuItem>
+                        </Select>
+                    </div>
+                    
+                    <div>Ascending Order</div>
+                        <Switch
+                            color= 'primary'
+                            onChange={this.toggleChange}
+                        />
+                </div>
+                
                 {activePageDiv}
                 <div className='paginationContainer'>
                     <Pagination
