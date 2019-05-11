@@ -14,19 +14,18 @@ class StoresAndPies extends Component
     }
 
     
-
     render() {
+        const {stores,pies} = this.props;
         return (
             <div>
                 {
-                    (this.props.stores && this.props.pies)?
+                    (stores && pies)?
                         <MainContent
                             stores = {this.props.stores}
                             pies = {this.props.pies}
                         />
                         : <NoStoresOrPies/>
                 }
-                {/*To do: one of storeList or pieList is always empty, see what the issue is */}
             </div>
         );
     }
@@ -45,8 +44,8 @@ const mapDispatchtoProps = dispatch => (
 const mapStateToProps = state => (
     {
         stores: state.data.stores,
-        pies: state.data.pies
-
+        pies: state.data.pies,
+        errors: state.data.errors
     }
 );
 export default connect(mapStateToProps,mapDispatchtoProps)(StoresAndPies)

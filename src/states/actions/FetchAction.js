@@ -1,4 +1,4 @@
-import { FETCH_STORES,FETCH_PIES } from './types';
+import { FETCH_STORES,FETCH_PIES, FETCH_FAIL } from './types';
 
 export const fetchStores = () => dispatch =>
 {
@@ -9,7 +9,13 @@ export const fetchStores = () => dispatch =>
                 type: FETCH_STORES,
                 payload: stores
             })
-        );    
+        )
+        .catch(err => {
+            dispatch({
+                type:FETCH_FAIL,
+                error: "Fetching stores from api failed"
+            });
+        });    
 
 };
 
@@ -23,7 +29,12 @@ export const fetchPies = () => dispatch =>
                 type: FETCH_PIES,
                 payload: pies
             })
-        );  
+        ).catch(err => {
+            dispatch({
+                type:FETCH_FAIL,
+                error: "Fetching pies from api failed"
+            });
+        });  
 
 };
 

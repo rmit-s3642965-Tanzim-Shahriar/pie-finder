@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './MainContent.scss';
-import PieOfTheDay from './PieOfTheDay';
+import About from './About';
 import ListOfStores from './ListOfStores';
-import ListOfPies from './ListOfPies';
+
 class MainContent extends Component 
 {
     constructor() 
@@ -14,15 +14,14 @@ class MainContent extends Component
         };
     };
 
-
     showStores = () =>
     {
         this.setState({componentToShow: 'stores'});
     };
 
-    showPies = () =>
+    showAbout = () =>
     {
-        this.setState({componentToShow: 'pies'});
+        this.setState({componentToShow: 'about'});
     };
 
     render() 
@@ -30,8 +29,8 @@ class MainContent extends Component
         return (
             <div className = 'MainContent'>
                 <div className = 'buttons'>
-                    <div onClick={this.showStores}>STORES</div>
-                    <div onClick={this.showPies}>LIST OF PIES</div>
+                    <div onClick = {this.showStores}>PIE OF THE DAY</div>
+                    <div onClick = {this.showAbout}>ABOUT</div>
                 </div>
 
                 {this.state.componentToShow==='stores'?
@@ -42,16 +41,13 @@ class MainContent extends Component
                     />
                 
                 :null
-                }
-
-                {this.state.componentToShow==='pies'?
+                }  
+                {this.state.componentToShow==='about'?
                     
-                    <ListOfPies
-                        pies = {this.props.pies}
-                    />
+                    <About/>
                 
                 :null
-                }           
+                }      
 
                 
             </div>

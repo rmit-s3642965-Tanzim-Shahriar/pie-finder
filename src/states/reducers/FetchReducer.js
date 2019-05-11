@@ -1,8 +1,9 @@
-import { FETCH_STORES,FETCH_PIES } from '../actions/types';
+import { FETCH_STORES,FETCH_PIES, FETCH_FAIL } from '../actions/types';
 
 const initialState = {
     stores: [],
     pies: [],
+    errors: []
     
 }
 
@@ -20,6 +21,11 @@ export default (state = initialState,action) =>
                 ...state,
                 pies: action.payload
             };
+        case FETCH_FAIL:
+            return{
+                ...state,
+                errors: action.error         
+            }
         default:
             return state;
     }

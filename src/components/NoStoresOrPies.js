@@ -6,7 +6,7 @@ class NoStoresOrPies extends Component
     {
         return (
             <div className='NoStoresOrPies'>
-                This is NoStoresOrPies component
+                NO STORES OR PIES FOUND, Please check your internet connection
             </div>
         );
     }

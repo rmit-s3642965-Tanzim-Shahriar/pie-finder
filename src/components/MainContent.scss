@@ -9,7 +9,18 @@
     div
     {
         margin: 15px 15px 10px 15px;
-        font-weight: normal;
+        font-weight: lighter;
         font-size:18px;
+        padding:8px;
+        
+    }
+    div:hover
+    {
+        cursor: pointer;
+        color: rgb(235, 215, 69);
+        font-weight: bold;
+        // border-style:solid;
+        // border-color: rgb(255, 255, 255);
+        // border-width: 1px;
     }
 }

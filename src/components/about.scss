@@ -1,0 +1,21 @@
+.about
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: stretch;
+    align-items: flex-start;
+    margin-left:8vw;
+    margin-right:8vw;
+    p
+    {
+        font-weight: lighter;
+        font-size: 20px;
+    }
+}
+.headerTitle
+{
+    font-weight: lighter;
+    font-size: 30px;
+    padding:15px;
+}
