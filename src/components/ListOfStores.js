@@ -8,7 +8,6 @@ import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import { MenuItem } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-import { isUserWhitespacable } from '@babel/types';
 
 const BootstrapInput = withStyles(theme => ({
     root: {
