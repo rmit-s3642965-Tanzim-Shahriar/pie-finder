@@ -1,70 +1,107 @@
 import React, { Component } from 'react';
 import Pagination from 'react-js-pagination';
 import './ListOfStoresOrPies.scss';
+import { withStyles } from '@material-ui/core/styles'
 import sort from 'fast-sort';
 import PropTypes from 'prop-types';
+import Switch from '@material-ui/core/Switch';
+import Select from '@material-ui/core/Select';
+import { MenuItem } from '@material-ui/core';
+import InputBase from '@material-ui/core/InputBase';
+import { isUserWhitespacable } from '@babel/types';
+
+const BootstrapInput = withStyles(theme => ({
+    root: {
+      'label + &': {
+        marginTop: theme.spacing.unit * 3,
+      },
+    },
+    input: {
+      borderRadius: 4,
+      position: 'relative',
+      backgroundColor: theme.palette.background.paper,
+      border: '1px solid #ced4da',
+      fontSize: 15,
+      width: 'auto',
+      padding: '10px 26px 10px 12px',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+      '&:focus': {
+        borderRadius: 4,
+        borderColor: '#80bdff',
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+      },
+    },
+  }))(InputBase);
+
 class ListOfStores extends Component 
 {
     
-    constructor() 
+    constructor(props) 
     {
-        super();
+        super(props);
         this.state = {
-            activePage: 0,
-            maxStoresPerPage: 0,
-            sortBy: 'ascrating',
+            activePage: 1,
+            maxStoresPerPage: 5,
             hasLoaded:false,
             stores:{},
             pies:{},
-            sortedStores:{}
+            sortedStores:{},
+            selectedSort: '',
+            descending: false,
         };
         
     };
 
-   componentWillMount()
-   {
-    this.setState({
-        activePage: 1,
-        maxStoresPerPage: 5,
-    });
-   }
-//    componentDidMount() {
-//     this.setState({hasLoaded: false})
-//     setTimeout(() => { 
-//           this.setState({hasLoaded: true})
-//     }, 5000);
-//     }
 
-    componentWillReceiveProps()
+
+    getSortedStores=()=>
     {
         
-        if((this.props.stores && this.props.pies) && (this.props.stores!==this.state.stores || this.props.pies!==this.state.pies))
+        let sortedStores = this.props.stores;
+        if(this.state.selectedSort === 'storeRating')
         {
-            this.setState({
-                stores:this.props.stores,
-                pies:this.props.pies
-            });
+            this.state.descending? sort(sortedStores).desc('rating'): sort(sortedStores).asc('rating');;
         }
-    }
+        else if(this.state.selectedSort === 'price' || this.state.selectedSort === 'quantity')
+        {
+            let piesOfTheDay=[];
+            let tempSortedStores=[];
+            for(let i = 0; i < sortedStores.length; i++)
+            {
+                piesOfTheDay.push(this.findPieOfTheDayForAStore(sortedStores[i].id));
+            }
+            this.state.selectedSort === 'price'? (this.state.descending? sort(piesOfTheDay).desc('price')
+            : sort(piesOfTheDay).asc('price')) : (this.state.descending? sort(piesOfTheDay).desc('quantity')
+            : sort(piesOfTheDay).asc('quantity'));
+            
 
-    setSortedStores=()=>
-    {
-        for(let i = 0; i < this.state.stores.length; i++)
-        {
-            this.setState({
-                sortedStores:{
-                    nameOfStore:this.state.stores[i].displayName,
-                    address:this.state.stores[i].address,
-                    mobile:this.state.stores[i].mobile,
-                    rating: this.state.stores[i].rating,
-                    pieOfTheDay: {
-                        name: 'todo',
-                        price: 'todo'
-                    },
-                    quantity: 'todo',
+            for(let i = 0; i < piesOfTheDay.length; i++)
+            {
+                for(let j = 0; j < sortedStores.length; j++)
+                {
+                    piesOfTheDay[i].storeId === sortedStores[j].id? tempSortedStores.push(sortedStores[j]):null;
                 }
-            });
+            }
+            sortedStores = tempSortedStores;
         }
+        else if(this.state.selectedSort === '')
+        {
+            sortedStores = this.props.stores;
+        }
+        return sortedStores;
         
     }
 
@@ -72,27 +109,28 @@ class ListOfStores extends Component
     {
         
         let name,price,quantity =  '';
-        
-        for(let i = 0; i < this.props.pies.length; i++)
+        const{pies} = this.props;
+        for(let i = 0; i < pies.length; i++)
         {
             
-            if(this.props.pies[i].isPieOfTheDay)
+            if(pies[i].isPieOfTheDay)
             {
-                if(this.props.pies[i].storeId===storeId)
+                if(pies[i].storeId===storeId)
                 {
-                    name= this.props.pies[i].displayName;
-                    price= this.props.pies[i].priceString;
-                    quantity= this.props.pies[i].quantity;
+                    name= pies[i].displayName;
+                    price= pies[i].priceString;
+                    quantity= pies[i].quantity;
                 }
             }
         }
-        return {name,price,quantity};
+        return {name,price,quantity,storeId};
     }
 
    
     renderActivePage = () => 
     {
         
+        const sortedStores = this.getSortedStores();
         let list = this.props.stores? [...this.props.stores]: null;
         let counter = 0;
         if(!list)
@@ -103,38 +141,18 @@ class ListOfStores extends Component
         while(list.length!==0)
         {
             list.pop();
-        }
-        
-        let sortedStore = this.props.stores;
-
-        //this.setSortedStores(this.props.stores);
-
-        switch(this.state.sortBy)
-        {
-            case 'ascprice':
-                sort(sortedStore).asc('price');
-            case 'descprice':
-                sort(sortedStore).desc('price')
-            case 'ascquantity':
-                sort(sortedStore).asc('quantity')
-            case 'descquantity':
-                sort(sortedStore).desc('quantity')
-            case 'ascrating':
-                sort(sortedStore).asc('rating')
-            case 'descrating':
-                sort(sortedStore).desc('rating') 
-            default:
-            sortedStore = this.props.stores;
-                
-        }
-        
-        for(let i = (this.state.activePage-1)*this.state.maxStoresPerPage; i< this.props.stores.length && counter<5; i++)
+        }  
+        for(let i = (this.state.activePage-1)*this.state.maxStoresPerPage; i< sortedStores.length && counter<5; i++)
         {
             
-            list.push(sortedStore[i]);
+            list.push(sortedStores[i]);
             counter++;
             
         
+        }
+        if(!list)
+        {
+            return null;
         }
         
         const tempStores = list.map(store =>
@@ -188,17 +206,50 @@ class ListOfStores extends Component
         this.setState({activePage:pageNumber});
     }
 
-    
-    render() 
-    {   
-        const{ stores } = this.props;
+    toggleChange= event =>
+    {
+        
+        this.setState({descending: !this.state.descending});
+    }
+    handleChange = event => 
+    {
+        this.setState({ selectedSort: event.target.value });
+    };
 
+    render() 
+    {  
+        const {stores,pies} = this.props;
+        
+        
         let totalItems = stores ? parseInt(stores.length) : 0;        
+        let activePageDiv = this.renderActivePage();
         return (
 
             <div className='ListOfStores'>
                 <div className='headerTitle'>Stores:</div>
-                {this.renderActivePage(this.state.activePage)}
+                <div className='sortingContainer'>
+                    <div>Sort by</div>
+                    <div className="sortSelect">
+                        <Select
+                            value={this.state.selectedSort}
+                            onChange={this.handleChange}
+                            input={<BootstrapInput name="age" id="age-customized-select" />}
+                        >
+                            <MenuItem value=""><em>None</em></MenuItem>
+                            <MenuItem value='price'>Price</MenuItem>
+                            <MenuItem value='quantity'>Quantity</MenuItem>
+                            <MenuItem value='storeRating'>Store Rating</MenuItem>
+                        </Select>
+                    </div>
+                    
+                    <div>Order (High to Low)</div>
+                        <Switch
+                            color= 'primary'
+                            onChange={this.toggleChange}
+                        />
+                </div>
+                
+                {activePageDiv}
                 <div className='paginationContainer'>
                     <Pagination
                         activePage={this.state.activePage}
