@@ -84,7 +84,6 @@ API and then will store all data to the App's redux store.<br>
 2. App will display information about each store and it's pie of the day.<br>
 3. Stores can be sorted by price of the Pie Of The Day, quantity of pies and Rating of store in ascending or descending order<br>
 4. List is paginated with 5 stores per page.<br>
-Due to time limitations and lack of previous experience in testing using jest and enzyme, majority of the time was spent setting up the testing environment instead of writing tests.<br>
 5. If API fetch fails, a fail message is showed.<br>
 6. Throughout the app most elements are styled using flexboxes to keep mobile view of the app consistent.<p>
 7. For testing, snapshots are taken by using enzyme. To run the tests please remember to edit the .babelrc file.<br>
