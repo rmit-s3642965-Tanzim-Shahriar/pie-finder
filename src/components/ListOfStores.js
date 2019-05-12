@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select';
 import { MenuItem } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 
+//Styles react-select Sort by dropdown
 const BootstrapInput = withStyles(theme => ({
     root: {
       'label + &': {
@@ -24,7 +25,6 @@ const BootstrapInput = withStyles(theme => ({
       width: 'auto',
       padding: '10px 26px 10px 12px',
       transition: theme.transitions.create(['border-color', 'box-shadow']),
-      // Use the system font instead of the default Roboto font.
       fontFamily: [
         '-apple-system',
         'BlinkMacSystemFont',
@@ -47,28 +47,20 @@ const BootstrapInput = withStyles(theme => ({
 
 class ListOfStores extends Component 
 {
-    
     constructor(props) 
     {
         super(props);
         this.state = {
             activePage: 1,
             maxStoresPerPage: 5,
-            hasLoaded:false,
-            stores:{},
-            pies:{},
-            sortedStores:{},
             selectedSort: '',
             descending: false,
-        };
-        
+        }; 
     };
 
-
-
+    //sorts and returns stores array
     getSortedStores=()=>
     {
-        
         let sortedStores = this.props.stores;
         if(this.state.selectedSort === 'storeRating')
         {
@@ -85,7 +77,6 @@ class ListOfStores extends Component
             this.state.selectedSort === 'price'? (this.state.descending? sort(piesOfTheDay).desc('price')
             : sort(piesOfTheDay).asc('price')) : (this.state.descending? sort(piesOfTheDay).desc('quantity')
             : sort(piesOfTheDay).asc('quantity'));
-            
 
             for(let i = 0; i < piesOfTheDay.length; i++)
             {
@@ -101,9 +92,10 @@ class ListOfStores extends Component
             sortedStores = this.props.stores;
         }
         return sortedStores;
-        
     }
 
+    //takes in storeId and returns a custom pie object which 
+    //is the pie of the day for that store
     findPieOfTheDayForAStore = (storeId) =>
     {
         
@@ -124,34 +116,18 @@ class ListOfStores extends Component
         }
         return {name,price,quantity,storeId};
     }
-
    
+    //renders a list with at most 5 stores
     renderActivePage = () => 
     {
-        
         const sortedStores = this.getSortedStores();
-        let list = this.props.stores? [...this.props.stores]: null;
+        let list = [];
         let counter = 0;
-        if(!list)
-        {
-            return null;
-        }
-        
-        while(list.length!==0)
-        {
-            list.pop();
-        }  
+    
         for(let i = (this.state.activePage-1)*this.state.maxStoresPerPage; i< sortedStores.length && counter<5; i++)
         {
-            
             list.push(sortedStores[i]);
             counter++;
-            
-        
-        }
-        if(!list)
-        {
-            return null;
         }
         
         const tempStores = list.map(store =>
@@ -160,8 +136,6 @@ class ListOfStores extends Component
                     <div className= 'titleContainer'>
                         <div className='itemTitle'>{store.displayName}</div>
                     </div>
-
-
                     
                     {(this.findPieOfTheDayForAStore(store.id).name && this.findPieOfTheDayForAStore(store.id).name !== '') ?
                     
@@ -191,13 +165,11 @@ class ListOfStores extends Component
             </div> 
         );
             
-            
         return(
             <div className = 'boxContainer'>
                 {tempStores}
             </div>
         );
-        
     }
 
     handlePageChange = (pageNumber) =>
@@ -205,11 +177,11 @@ class ListOfStores extends Component
         this.setState({activePage:pageNumber});
     }
 
-    toggleChange= event =>
+    toggleChange= () =>
     {
-        
         this.setState({descending: !this.state.descending});
     }
+
     handleChange = event => 
     {
         this.setState({ selectedSort: event.target.value });
@@ -217,13 +189,10 @@ class ListOfStores extends Component
 
     render() 
     {  
-        const {stores,pies} = this.props;
-        
-        
+        const {stores} = this.props;
         let totalItems = stores ? parseInt(stores.length) : 0;        
         let activePageDiv = this.renderActivePage();
         return (
-
             <div className='ListOfStores'>
                 <div className='headerTitle'>Stores:</div>
                 <div className='sortingContainer'>
@@ -247,7 +216,6 @@ class ListOfStores extends Component
                             onChange={this.toggleChange}
                         />
                 </div>
-                
                 {activePageDiv}
                 <div className='paginationContainer'>
                     <Pagination
@@ -259,10 +227,8 @@ class ListOfStores extends Component
                         prevPageText='Previous'
                         nextPageText='Next'
                     />
-
                 </div>
             </div>
-
         );
     }
 }
