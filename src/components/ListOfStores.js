@@ -60,7 +60,7 @@ class ListOfStores extends Component
             pies:{},
             sortedStores:{},
             selectedSort: '',
-            ascending: false,
+            descending: false,
         };
         
     };
@@ -71,13 +71,33 @@ class ListOfStores extends Component
     {
         
         let sortedStores = this.props.stores;
-        console.log("selectedSort:"+this.state.selectedSort);
-        console.log("ascending:"+this.state.ascending);
         if(this.state.selectedSort === 'storeRating')
         {
-            this.state.ascending? sort(sortedStores).asc('rating'): sort(sortedStores).desc('rating');;
+            this.state.descending? sort(sortedStores).desc('rating'): sort(sortedStores).asc('rating');;
         }
-        else
+        else if(this.state.selectedSort === 'price' || this.state.selectedSort === 'quantity')
+        {
+            let piesOfTheDay=[];
+            let tempSortedStores=[];
+            for(let i = 0; i < sortedStores.length; i++)
+            {
+                piesOfTheDay.push(this.findPieOfTheDayForAStore(sortedStores[i].id));
+            }
+            this.state.selectedSort === 'price'? (this.state.descending? sort(piesOfTheDay).desc('price')
+            : sort(piesOfTheDay).asc('price')) : (this.state.descending? sort(piesOfTheDay).desc('quantity')
+            : sort(piesOfTheDay).asc('quantity'));
+            
+
+            for(let i = 0; i < piesOfTheDay.length; i++)
+            {
+                for(let j = 0; j < sortedStores.length; j++)
+                {
+                    piesOfTheDay[i].storeId === sortedStores[j].id? tempSortedStores.push(sortedStores[j]):null;
+                }
+            }
+            sortedStores = tempSortedStores;
+        }
+        else if(this.state.selectedSort === '')
         {
             sortedStores = this.props.stores;
         }
@@ -103,7 +123,7 @@ class ListOfStores extends Component
                 }
             }
         }
-        return {name,price,quantity};
+        return {name,price,quantity,storeId};
     }
 
    
@@ -189,7 +209,7 @@ class ListOfStores extends Component
     toggleChange= event =>
     {
         
-        this.setState({ascending: !this.state.ascending});
+        this.setState({descending: !this.state.descending});
     }
     handleChange = event => 
     {
@@ -215,15 +235,14 @@ class ListOfStores extends Component
                             onChange={this.handleChange}
                             input={<BootstrapInput name="age" id="age-customized-select" />}
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value='storeRating'>Store Rating</MenuItem>
+                            <MenuItem value=""><em>None</em></MenuItem>
                             <MenuItem value='price'>Price</MenuItem>
+                            <MenuItem value='quantity'>Quantity</MenuItem>
+                            <MenuItem value='storeRating'>Store Rating</MenuItem>
                         </Select>
                     </div>
                     
-                    <div>Ascending Order</div>
+                    <div>Order (High to Low)</div>
                         <Switch
                             color= 'primary'
                             onChange={this.toggleChange}
