@@ -24,3 +24,31 @@
         // border-width: 1px;
     }
 }
+.loading
+{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    div
+    {
+        font-weight: lighter;
+        font-size: 30px;
+        padding:5px;
+        
+    }
+}
+.error
+{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    div
+    {
+        font-weight: lighter;
+        font-size: 20px;
+        padding:2px;
+        
+    }
+}
