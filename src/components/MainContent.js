@@ -20,17 +20,20 @@ class MainContent extends Component
         };
     };
     
+
     componentDidMount()
     {
         this.props.fetchStores();
         this.props.fetchPies();
     }
+
+    //onClick Pie Of The Day
     showStores = () =>
     {
         this.setState({componentToShow: 'stores'});
-        console.log(this.state.stores);
     };
 
+    //onClick About
     showAbout = () =>
     {
         this.setState({componentToShow: 'about'});
@@ -39,7 +42,7 @@ class MainContent extends Component
 
     render() 
     {
-        
+        //load errors when fetch fails in fetchAction
         let error = this.props.error.length!==0?<div className = 'errorMessage'>{this.props.error}</div> : null;
         
         return (
@@ -50,20 +53,13 @@ class MainContent extends Component
                         <div>Loading Page failed. Try Reloading.</div>
                         <div>{error}</div>
                     </div>
-                    
-                    :
-
-
-                     
+                    :                    
                         <div className="loading">
                             <div>Please Wait, Loading</div>
                             <div>
                                 <CircularProgress/>
                             </div>
                         </div>
-                    
-                    
-                    
                     )
             :
             <div>
@@ -88,27 +84,27 @@ class MainContent extends Component
                 :null
                 }
             </div>    
-            }
-                   
-
-                
+            } 
             </div>
         );
     }
     
 }
+
 MainContent.protoTypes = {
     fetchStores: PropTypes.func.isRequired,
     fetchPies: PropTypes.func.isRequired,
     stores: PropTypes.array.isRequired,
     loaded: PropTypes.array.isRequired
 }
+
 const mapDispatchtoProps = dispatch => (
     {
         fetchStores: () => {dispatch(fetchStores())},
         fetchPies: () => {dispatch(fetchPies())},
     }
 );
+
 const mapStateToProps = state => (
     {
         stores: state.data.stores,
@@ -117,5 +113,5 @@ const mapStateToProps = state => (
         loaded: state.data.loaded
     }
 );
-export default connect(mapStateToProps,mapDispatchtoProps)(MainContent)
 
+export default connect(mapStateToProps,mapDispatchtoProps)(MainContent)
