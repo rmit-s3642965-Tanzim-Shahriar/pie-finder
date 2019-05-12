@@ -1,5 +1,5 @@
 This project was at first bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
-Later on, redux store was added with custom actions, reducers and react-script was removed and replaced with babel.
+Later on, redux store was added with custom actions, reducers and react-script was removed and replaced with webpack and babel.
 
 ### STEPS TO RUN THE APP LOCALLY
 
