@@ -1,4 +1,5 @@
-import { FETCH_STORES,FETCH_PIES, FETCH_FAIL } from './types';
+import { FETCH_STORES,FETCH_PIES, STORE_FETCH_FAIL,PIE_FETCH_FAIL } from './types';
+import { isFlowBaseAnnotation } from '@babel/types';
 
 export const fetchStores = () => dispatch =>
 {
@@ -7,13 +8,14 @@ export const fetchStores = () => dispatch =>
         .then(stores =>
             dispatch({
                 type: FETCH_STORES,
-                payload: stores
+                payload: stores,
+                storeLoaded: true
             })
         )
         .catch(err => {
             dispatch({
-                type:FETCH_FAIL,
-                error: "Fetching stores from api failed"
+                type:STORE_FETCH_FAIL,
+                error: ("Fetching Stores Failed.")
             });
         });    
 
@@ -27,12 +29,13 @@ export const fetchPies = () => dispatch =>
         .then(pies =>
             dispatch({
                 type: FETCH_PIES,
-                payload: pies
+                payload: pies,
+                pieLoaded:true
             })
         ).catch(err => {
             dispatch({
-                type:FETCH_FAIL,
-                error: "Fetching pies from api failed"
+                type:PIE_FETCH_FAIL,
+                error: ("Fetching Pies Failed.")
             });
         });  
 

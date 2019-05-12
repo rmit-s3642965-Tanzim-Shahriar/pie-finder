@@ -43,6 +43,6 @@ To add redux devtools to observe state management, install redux devtools chrome
 `webpack`: runs the server<br>
 `babel`: converts jsx and scss to one js file<br>
 `sass-loader,node-sass,style-loader`: loads scss files <br>
-`react-bootstrap`: not used yet<br>
+`@material-ui/core`: Switch used for toggle button, Select used for dropdown,styles used for styling<br>
 `react-js-pagination`: used for making the ul li at the bottom of page<br>
 `fast-sort`: sorts arrays with good benchmark<br>
