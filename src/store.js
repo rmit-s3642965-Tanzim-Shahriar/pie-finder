@@ -11,7 +11,7 @@ const store = createStore(
     compose(
         applyMiddleware(...middleware),
         // Uncomment the next line to use redux devtools
-         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
       )
 );
 export default store;
