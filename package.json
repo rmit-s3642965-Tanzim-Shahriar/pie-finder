@@ -7,12 +7,25 @@
     "fast-sort": "^1.5.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-js-pagination": "^3.0.2",
-    "react-scripts": "3.0.0"
+    "react-js-pagination": "^3.0.2"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|scss|less)$": "identity-obj-proxy"
+    },
+    "setupFiles": [
+      "./src/setupTests.js"
+    ]
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,13 +43,24 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-stage-0": "^7.0.0",
+    "@babel/types": "^7.4.4",
     "@material-ui/core": "^3.9.3",
     "babel-core": "^6.26.3",
+    "babel-jest": "^24.8.0",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^2.1.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.0",
+    "enzyme-to-json": "^3.3.5",
     "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.8.0",
     "node-sass": "^4.12.0",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-redux": "^7.0.3",

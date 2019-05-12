@@ -1,5 +1,4 @@
 import { FETCH_STORES,FETCH_PIES, STORE_FETCH_FAIL,PIE_FETCH_FAIL } from './types';
-import { isFlowBaseAnnotation } from '@babel/types';
 
 export const fetchStores = () => dispatch =>
 {

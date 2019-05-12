@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders and mounts app without crashing 1`] = `
+<App>
+  <Provider
+    store={
+      Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+        Symbol(observable): [Function],
+      }
+    }
+  >
+    <div
+      className="App"
+    >
+      <ConnectFunction>
+        <MainContent
+          error={Array []}
+          fetchPies={[Function]}
+          fetchStores={[Function]}
+          loaded={
+            Object {
+              "pieLoaded": false,
+              "storeLoaded": false,
+            }
+          }
+          pies={Array []}
+          stores={Array []}
+        >
+          <div
+            className="MainContent"
+          >
+            <div
+              className="loading"
+            >
+              <div>
+                Please Wait, Loading
+              </div>
+              <div>
+                <WithStyles(CircularProgress)>
+                  <CircularProgress
+                    classes={
+                      Object {
+                        "circle": "MuiCircularProgress-circle-7",
+                        "circleDisableShrink": "MuiCircularProgress-circleDisableShrink-10",
+                        "circleIndeterminate": "MuiCircularProgress-circleIndeterminate-9",
+                        "circleStatic": "MuiCircularProgress-circleStatic-8",
+                        "colorPrimary": "MuiCircularProgress-colorPrimary-4",
+                        "colorSecondary": "MuiCircularProgress-colorSecondary-5",
+                        "indeterminate": "MuiCircularProgress-indeterminate-3",
+                        "root": "MuiCircularProgress-root-1",
+                        "static": "MuiCircularProgress-static-2",
+                        "svg": "MuiCircularProgress-svg-6",
+                      }
+                    }
+                    color="primary"
+                    disableShrink={false}
+                    size={40}
+                    thickness={3.6}
+                    value={0}
+                    variant="indeterminate"
+                  >
+                    <div
+                      className="MuiCircularProgress-root-1 MuiCircularProgress-colorPrimary-4 MuiCircularProgress-indeterminate-3"
+                      role="progressbar"
+                      style={
+                        Object {
+                          "height": 40,
+                          "width": 40,
+                        }
+                      }
+                    >
+                      <svg
+                        className="MuiCircularProgress-svg-6"
+                        viewBox="22 22 44 44"
+                      >
+                        <circle
+                          className="MuiCircularProgress-circle-7 MuiCircularProgress-circleIndeterminate-9"
+                          cx={44}
+                          cy={44}
+                          fill="none"
+                          r={20.2}
+                          strokeWidth={3.6}
+                          style={Object {}}
+                        />
+                      </svg>
+                    </div>
+                  </CircularProgress>
+                </WithStyles(CircularProgress)>
+              </div>
+            </div>
+          </div>
+        </MainContent>
+      </ConnectFunction>
+    </div>
+  </Provider>
+</App>
+`;
