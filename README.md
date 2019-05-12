@@ -35,11 +35,11 @@ You can access the app after a build by opening ./public/index.html
 ### `npm run test`
 
 #### `WARNING:` <br>
-jest cant read .scss files<br>
-2. MUST uncomment out <br>
+<br>
+MUST uncomment out <br>
 //"presets": ["@babel/preset-env","@babel/preset-react"],"plugins": ["@babel/plugin-proposal-class-properties"] <br>
-AND comment out <br>
-"presets": ["env","stage-0","react"],<br>
+<br>AND comment out <br><br>
+"presets": ["env","stage-0","react"],<br><br>
 in.babelrc file
 to run the tests. TO RUN THE APP AGAIN, undo this.
 
